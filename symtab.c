@@ -37,8 +37,10 @@
 #include <err.h>
 #include <dlfcn.h>
 
+#ifdef LIBELF
 #include <libelf.h>
 #include <gelf.h>
+#endif
 #ifndef ELF_ST_BIND
 #define ELF_ST_BIND(x)          ((x) >> 4)
 #endif
@@ -82,6 +84,7 @@ symtab_destroy(symtab_t *s)
 symtab_t *
 symtab_create(int fd, int bind, int type)
 {
+#ifdef LIBELF
 	Elf *elf;
 	symtab_t *st;
 	Elf_Scn *scn = NULL;
@@ -171,6 +174,9 @@ out:
 	symtab_destroy(st);
 	elf_end(elf);
 	return NULL;
+#else
+	return NULL;
+#endif
 }
 
 
