@@ -71,7 +71,7 @@ open_self(int flags)
 }
 
 
-static int __printflike(4, 5)
+static int
 rasprintf(char **buf, size_t *bufsiz, size_t offs, const char *fmt, ...)
 {
 	for (;;) {
